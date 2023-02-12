@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 public class ApiError {
 
     private String message;
-    private String reason;
     private HttpStatus status;
 
 }

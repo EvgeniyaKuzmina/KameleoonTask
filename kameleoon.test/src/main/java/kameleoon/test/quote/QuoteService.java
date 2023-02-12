@@ -1,7 +1,12 @@
 package kameleoon.test.quote;
 
+import kameleoon.test.quote.model.Quote;
+import kameleoon.test.quote.model.QuoteCountVotes;
 import kameleoon.test.user.User;
-import org.springframework.stereotype.Service;
+import kameleoon.test.vote.Vote;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface QuoteService {
 
@@ -15,8 +20,10 @@ public interface QuoteService {
 
     Quote getRandomQuote();
 
-    Quote getTopQuote(Integer top);
+    List<QuoteCountVotes> getTopQuote(Pageable pageable );
 
-    Quote getWorseQuote(Integer worse);
+    List<QuoteCountVotes> getWorseQuote(Integer worse);
+
+    QuoteCountVotes addLike(Vote vote, Long quoteId, Long userId);
 
 }

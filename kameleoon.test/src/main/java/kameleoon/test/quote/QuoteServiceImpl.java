@@ -2,13 +2,21 @@ package kameleoon.test.quote;
 
 import kameleoon.test.exception.ConflictException;
 import kameleoon.test.exception.ObjectNotFountException;
+import kameleoon.test.exception.ValidationException;
+import kameleoon.test.quote.model.Quote;
+import kameleoon.test.quote.model.QuoteCountVotes;
 import kameleoon.test.user.User;
 import kameleoon.test.user.UserService;
+import kameleoon.test.vote.Vote;
+import kameleoon.test.vote.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -16,6 +24,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class QuoteServiceImpl implements QuoteService {
+    private final VoteRepository voteRepository;
 
     private final QuoteRepository repository;
     private final UserService userService;
@@ -66,15 +75,30 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public Quote getTopQuote(Integer top) {
-
-        return null;
+    public List<QuoteCountVotes> getTopQuote(Pageable pageable) {
+        return repository.findTopQuote(pageable);
     }
 
     @Override
-    public Quote getWorseQuote(Integer worse) {
+    public List<QuoteCountVotes> getWorseQuote(Integer worse) {
+        return repository.findWorseQuote(worse);
+    }
 
-        return null;
+    @Override
+    public QuoteCountVotes addLike (Vote vote, Long quoteId, Long userId) {
+
+        User user = userService.getUserById(userId);
+        Quote quote = getQuote(quoteId);
+        vote.setQuote(quote);
+        vote.setAuthor(user);
+        try {
+            voteRepository.save(vote);
+            log.info("VoteServiceImpl: addLike — lake was added");
+            return repository.findQuote(quoteId);
+        } catch (DataIntegrityViolationException e) {
+            log.error("UserServiceImpl: createUser — fields  name, email, password can not by empty");
+            throw new ValidationException("Fields  name, email, password can not by empty");
+        }
     }
 
     private void validateUserIdAndQuoteId(Long quoteId, Long userId) {

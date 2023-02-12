@@ -1,7 +1,7 @@
 package kameleoon.test.vote;
 
 import jakarta.persistence.*;
-import kameleoon.test.quote.Quote;
+import kameleoon.test.quote.model.Quote;
 import kameleoon.test.user.User;
 import lombok.*;
 
