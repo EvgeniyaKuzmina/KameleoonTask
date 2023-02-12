@@ -17,7 +17,7 @@ public class QuoteDto {
     private Long id;
     private String content;
     private LocalDateTime modificationDate;
-    private UserShortDto authorDto;
+    private UserShortDto author;
     private Long likes;
     private Long dislikes;
 }

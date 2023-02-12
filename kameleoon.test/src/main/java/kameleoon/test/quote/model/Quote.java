@@ -1,4 +1,4 @@
-package kameleoon.test.quote;
+package kameleoon.test.quote.model;
 
 import jakarta.persistence.*;
 import kameleoon.test.user.User;

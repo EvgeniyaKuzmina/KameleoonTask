@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode
 public class NewUserDto {
 
-    //private Long id;
+    private final LocalDateTime creationDate = LocalDateTime.now();
+    @NotNull
     @Length(min = 1, max = 300)
     private String name;
     @Email
@@ -26,5 +27,4 @@ public class NewUserDto {
     @NotNull
     @Length(min = 1, max = 20)
     private String password;
-    private final LocalDateTime creationDate = LocalDateTime.now();
 }

@@ -1,6 +1,5 @@
 package kameleoon.test.quote.dto;
 
-import kameleoon.test.user.User;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -19,6 +18,6 @@ public class NewQuoteDto {
     @NotNull
     @Length(min = 1)
     private String content;
-    private LocalDateTime modificationDate =  LocalDateTime.now();
-   // private User author;
+    private LocalDateTime modificationDate = LocalDateTime.now();
+
 }
