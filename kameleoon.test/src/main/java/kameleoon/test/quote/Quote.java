@@ -1,9 +1,9 @@
 package kameleoon.test.quote;
 
+import jakarta.persistence.*;
 import kameleoon.test.user.User;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Builder
@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @Entity
 @Table(name = "quotes")
 public class Quote {

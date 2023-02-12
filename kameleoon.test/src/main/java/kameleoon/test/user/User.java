@@ -1,8 +1,9 @@
 package kameleoon.test.user;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
+
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 
@@ -13,7 +14,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @Entity
 @Table(name = "users")
 public class User {

@@ -30,14 +30,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User checkUserById(Long id) {
+    public User getUserById(Long id) {
         Optional<User> userOpt = repository.findById(id);
         User user = userOpt.orElseThrow(() -> {
-            log.warn("UserServiceImpl: checkUserById — user with id {} not exist", id);
+            log.warn("UserServiceImpl: getUserById — user with id {} not exist", id);
             throw new ObjectNotFountException("User with id " + id + " not exist");
         });
 
-        log.info("UserServiceImpl: checkUserById — user with id {} was received", id);
+        log.info("UserServiceImpl: getUserById — user with id {} was received", id);
         return user;
 
     }
