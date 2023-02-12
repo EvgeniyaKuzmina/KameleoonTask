@@ -2,32 +2,37 @@ package kameleoon.test.quote;
 
 import kameleoon.test.exception.ConflictException;
 import kameleoon.test.exception.ObjectNotFountException;
+import kameleoon.test.user.User;
 import kameleoon.test.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+
 import java.util.Optional;
 
-@Service
+
 @Slf4j
+@Service
 @RequiredArgsConstructor
 public class QuoteServiceImpl implements QuoteService {
 
     private final QuoteRepository repository;
     private final UserService userService;
 
+
     @Override
-    public Quote createQuote(Quote quote) {
+    public Quote createQuote(Quote quote, User user) {
+        quote.setAuthor(user);
             quote =  repository.save(quote);
             log.info("QuoteRepository: createQuote — quote was added {}.", quote);
             return quote;
     }
 
     @Override
-    public Quote updateQuote(Quote updQuote, Long userId) {
-        validateUserIdAndQuoteId(updQuote.getId(), userId);
-        Quote quote = getQuote(updQuote.getId());
+    public Quote updateQuote(Quote updQuote, Long quoteId, Long userId) {
+        validateUserIdAndQuoteId(quoteId, userId);
+        Quote quote = getQuote(quoteId);
         quote.setContent(updQuote.getContent());
         quote.setModificationDate(updQuote.getModificationDate());
         quote =  repository.save(quote);
@@ -36,10 +41,10 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public void deleteQuote(Long id) {
-        getQuote(id);
-        repository.deleteById(id);
-        log.info("QuoteRepository: deleteQuote — quote with id {} was deleted", id);
+    public void deleteQuote(Long quoteId, Long userId) {
+        validateUserIdAndQuoteId(quoteId, userId);
+        repository.deleteById(quoteId);
+        log.info("QuoteRepository: deleteQuote — quote with id {} was deleted", quoteId);
     }
 
     @Override
@@ -56,11 +61,24 @@ public class QuoteServiceImpl implements QuoteService {
 
     @Override
     public Quote getRandomQuote() {
+
+        return null;
+    }
+
+    @Override
+    public Quote getTopQuote(Integer top) {
+
+        return null;
+    }
+
+    @Override
+    public Quote getWorseQuote(Integer worse) {
+
         return null;
     }
 
     private void validateUserIdAndQuoteId(Long quoteId, Long userId) {
-        userService.checkUserById(userId);
+        userService.getUserById(userId);
         Quote quote = getQuote(quoteId);
         if (!quote.getAuthor().getId().equals(userId)) {
             log.error("QuoteServiceImpl: validateUserIdAndQuoteId — user with id {} does not author of quote with id {}.", userId, quote.getId());
