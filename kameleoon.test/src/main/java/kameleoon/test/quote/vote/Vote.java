@@ -1,4 +1,4 @@
-package kameleoon.test.vote;
+package kameleoon.test.quote.vote;
 
 import jakarta.persistence.*;
 import kameleoon.test.quote.model.Quote;
@@ -13,19 +13,20 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
+@ToString
 @Table(name = "votes")
 public class Vote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "likes")
-    private Boolean like;
+    private Integer like;
     @Column(name = "dislikes")
-    private Boolean dislike;
+    private Integer dislike;
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
     @ManyToOne
-    @JoinColumn(name = "quotes_id", nullable = false)
+    @JoinColumn(name = "quote_id", nullable = false)
     private Quote quote;
 }

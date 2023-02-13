@@ -10,14 +10,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 public class QuoteDto {
 
     private Long id;
     private String content;
     private LocalDateTime modificationDate;
     private UserShortDto author;
-    private Long likes;
-    private Long dislikes;
+    @Builder.Default
+    private Long likes = 0L;
+    @Builder.Default
+    private Long dislikes = 0L;
 }

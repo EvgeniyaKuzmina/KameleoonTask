@@ -2,9 +2,11 @@ package kameleoon.test.quote;
 
 import kameleoon.test.quote.dto.NewQuoteDto;
 import kameleoon.test.quote.dto.QuoteDto;
+import kameleoon.test.quote.dto.RandomQuoteDto;
 import kameleoon.test.quote.dto.UpdateQuoteDto;
 import kameleoon.test.quote.model.Quote;
 import kameleoon.test.quote.model.QuoteCountVotes;
+import kameleoon.test.quote.model.QuoteRandom;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -13,7 +15,7 @@ public interface QuoteMapper {
 
     @Mapping(target = "content", source = "content")
     @Mapping(target = "modificationDate", source = "modificationDate")
-    //@Mapping(target = "author", source = "authorId", qualifiedByName = "authorIdToUser")
+        //@Mapping(target = "author", source = "authorId", qualifiedByName = "authorIdToUser")
     Quote toQuote(NewQuoteDto newQuoteDto);
 
     //@Mapping(target = "id", source = "id")
@@ -33,14 +35,9 @@ public interface QuoteMapper {
     @Mapping(target = "author", source = "author")
     @Mapping(target = "likes", source = "likes")
     @Mapping(target = "dislikes", source = "dislikes")
-    QuoteDto toQuoteDto (QuoteCountVotes quoteCountVotes);
+    QuoteDto toQuoteDto(QuoteCountVotes quoteCountVotes);
 
-    /*@Named("authorIdToUser")
-    default User authorIdToUser(Long id) {
-        return reactions.stream().filter(reaction -> reaction.getReaction().equals(TypeReaction.LIKE)).count();
-    }*/
+    @Mapping(target = "content", source = "content")
+    RandomQuoteDto toQuoteDto(QuoteRandom quote);
 
-   /* default User map(Long value){
-
-    }*/
 }

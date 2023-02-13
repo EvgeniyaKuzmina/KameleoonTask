@@ -1,7 +1,5 @@
-package kameleoon.test.vote;
+package kameleoon.test.quote.vote;
 
-import kameleoon.test.user.User;
-import kameleoon.test.user.dto.NewUserDto;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 

@@ -1,16 +1,18 @@
 package kameleoon.test.quote;
 
+import kameleoon.test.exception.ValidationException;
 import kameleoon.test.quote.dto.NewQuoteDto;
 import kameleoon.test.quote.dto.QuoteDto;
+import kameleoon.test.quote.dto.RandomQuoteDto;
 import kameleoon.test.quote.dto.UpdateQuoteDto;
 import kameleoon.test.quote.model.Quote;
 import kameleoon.test.quote.model.QuoteCountVotes;
 import kameleoon.test.user.User;
 import kameleoon.test.user.UserService;
-import kameleoon.test.vote.Vote;
-import kameleoon.test.vote.VoteDto;
-import kameleoon.test.vote.VoteMapper;
-import kameleoon.test.vote.VoteService;
+import kameleoon.test.quote.vote.Vote;
+import kameleoon.test.quote.vote.VoteDto;
+import kameleoon.test.quote.vote.VoteMapper;
+import kameleoon.test.quote.vote.VoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
@@ -29,7 +31,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class QuoteController {
 
-    private static final String STANDART_SIZE = "10";
+    private static final String STANDARD_SIZE = "10";
 
     private final QuoteService service;
     private final UserService userService;
@@ -58,22 +60,26 @@ public class QuoteController {
 
     @DeleteMapping(value = "/users/{userId}/quotes/{quoteId}")
     void deleteQuote(@PathVariable Long quoteId, @PathVariable Long userId) {
+        log.info("QuoteController: deleteQuote — received request to delete ith id {}", quoteId);
         service.deleteQuote(quoteId, userId);
     }
 
     @GetMapping(value = "quotes/{quoteId}")
     public QuoteDto getQuote(@PathVariable Long quoteId) {
+        log.info("QuoteController: getQuote — received request to get  Quote with id {}", quoteId);
         Quote quote = service.getQuote(quoteId);
         return mapper.toQuoteDto(quote);
     }
 
-    @GetMapping(value = "quotes?random")
-    public QuoteDto getRandomQuote(@RequestParam(defaultValue = "false") Boolean random) {
-        return null;
+    @GetMapping(value = "quotes/random")
+    public RandomQuoteDto getRandomQuote() {
+        log.info("QuoteController: getRandomQuote — received request to get random quote");
+        return mapper.toQuoteDto(service.getRandomQuote());
     }
 
     @GetMapping(value = "quotes/top")
-    public List<QuoteDto> getTopQuote(@RequestParam(defaultValue = STANDART_SIZE)  @Positive Integer top) {
+    public List<QuoteDto> getTopQuote(@RequestParam(defaultValue = STANDARD_SIZE)  @Positive Integer top) {
+        log.info("QuoteController: getTopQuote — received request to get top Quote");
         Pageable pageable = PageRequest.ofSize(top);
         List<QuoteCountVotes> quoteCountVotes = service.getTopQuote(pageable);
         return quoteCountVotes.stream().map(mapper::toQuoteDto).collect(Collectors.toList());
@@ -81,16 +87,22 @@ public class QuoteController {
     }
 
     @GetMapping(value = "quotes/worse")
-    public List<QuoteDto> getWorseQuote(@RequestParam(defaultValue = STANDART_SIZE)  @Positive Integer worse) {
-        List<QuoteCountVotes> quoteCountVotes = service.getWorseQuote(worse);
+    public List<QuoteDto> getWorseQuote(@RequestParam(defaultValue = STANDARD_SIZE)  @Positive Integer worse) {
+        log.info("QuoteController: getWorseQuote — received request to get worse Quote");
+        Pageable pageable = PageRequest.ofSize(worse);
+        List<QuoteCountVotes> quoteCountVotes = service.getWorseQuote(pageable);
         return quoteCountVotes.stream().map(mapper::toQuoteDto).collect(Collectors.toList());
 
     }
 
     @PostMapping(value = "/users/{userId}/quotes/{quoteId}")
-    public QuoteDto addLike(@Valid @RequestBody VoteDto voteDto, @PathVariable Long quoteId, @PathVariable Long userId) {
-        log.info("VoteController: addLike — received request to add like");
+    public QuoteDto addLikeOrDislike(@Valid @RequestBody VoteDto voteDto, @PathVariable Long quoteId, @PathVariable Long userId) {
+        if (voteDto.getLike() == 1 && voteDto.getDislike() == 1) {
+            throw new ValidationException("Not possible add like and dislike in the same time");
+        }
+        log.info("QuoteController: addLikeOrDislike — received request to add like or dislike");
         Vote vote = mapperVote.toVote(voteDto);
-        return mapper.toQuoteDto(service.addLike(vote, quoteId, userId));
+        return mapper.toQuoteDto(service.addLikeOrDislike(vote, quoteId, userId));
     }
+
 }
