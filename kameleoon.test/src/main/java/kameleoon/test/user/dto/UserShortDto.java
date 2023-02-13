@@ -7,8 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 public class UserShortDto {
     private String name;
     private String email;

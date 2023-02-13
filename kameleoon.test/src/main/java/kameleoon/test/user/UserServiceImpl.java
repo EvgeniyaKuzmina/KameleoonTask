@@ -2,10 +2,8 @@ package kameleoon.test.user;
 
 import kameleoon.test.exception.ConflictException;
 import kameleoon.test.exception.ObjectNotFountException;
-import kameleoon.test.exception.ValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +19,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(User user) {
         try {
-            user =  repository.save(user);
+            user = repository.save(user);
             log.info("UserServiceImpl: createUser — user was added {}.", user);
             return user;
-       } catch (DataIntegrityViolationException e) {
-            log.error("UserServiceImpl: createUser — fields  name, email, password can not by empty");
-            throw new ValidationException("Fields  name, email, password can not by empty");
-        } /* catch (DataIntegrityViolationException e) {
+        } catch (DataIntegrityViolationException e) {
             log.error("UserServiceImpl: createUser — user with email {} already exist", user.getEmail());
             throw new ConflictException(String.format("User with email %s already exist",
                     user.getEmail()));
-        }*/
+        }
     }
 
     @Override
