@@ -3,8 +3,8 @@ package kameleoon.test.quote;
 import kameleoon.test.quote.model.Quote;
 import kameleoon.test.quote.model.QuoteCountVotes;
 import kameleoon.test.quote.model.QuoteRandom;
-import kameleoon.test.user.User;
 import kameleoon.test.quote.vote.Vote;
+import kameleoon.test.user.User;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

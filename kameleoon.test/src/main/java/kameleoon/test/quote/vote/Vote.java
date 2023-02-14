@@ -1,6 +1,6 @@
 package kameleoon.test.quote.vote;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import kameleoon.test.quote.model.Quote;
 import kameleoon.test.user.User;
 import lombok.*;

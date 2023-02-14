@@ -1,8 +1,8 @@
 package kameleoon.test.quote.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDateTime;
 

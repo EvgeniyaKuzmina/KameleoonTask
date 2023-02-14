@@ -1,8 +1,8 @@
 package kameleoon.test.user;
 
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 
