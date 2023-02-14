@@ -44,6 +44,6 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
     @Query("select new kameleoon.test.quote.model.QuoteRandom(q.content) " +
             "from Quote as q")
     @Transactional
-    List<QuoteRandom> findIdsQuotes();
+    List<QuoteRandom> findAllQuotes();
 
 }

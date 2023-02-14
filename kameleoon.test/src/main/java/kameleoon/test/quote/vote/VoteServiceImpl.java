@@ -1,5 +1,6 @@
 package kameleoon.test.quote.vote;
 
+import kameleoon.test.exception.SaveException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,7 +23,7 @@ public class VoteServiceImpl implements VoteService {
             return newVote;
         } catch (DataIntegrityViolationException e) {
             log.error("VoteServiceImpl: saveVote — an error occurred while saving the data");
-            throw new RuntimeException("An error occurred while saving the data"); // TODO
+            throw new SaveException("An error occurred while saving the data");
         }
     }
 
@@ -33,15 +34,9 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public void changeLikeDislike(Boolean like, Boolean dislike, Long voteId) {
-        repository.updateLikeDislike(like, dislike, voteId);
-        log.info("VoteServiceImpl: changeLikeDislike — was changed like/dislike");
-    }
-
-    @Override
     public Optional<Vote> getVoteByAuthorIdAndQuoteId(Long authorId, Long quoteId) {
         Optional<Vote> optVote = Optional.ofNullable(repository.findByAuthorIdAndQuoteId(authorId, quoteId));
-        log.info("VoteServiceImpl: getVoteByAuthorIdAndQuoteId — gotten vote by authorId and quoteId");
+        log.info("VoteServiceImpl: getVoteByAuthorIdAndQuoteId — was gotten vote by authorId and quoteId");
         return optVote;
     }
 }

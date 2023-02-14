@@ -17,7 +17,7 @@ public interface QuoteService {
 
     void deleteQuote(Long quoteId, Long userId);
 
-    Quote getQuote(Long id);
+    QuoteCountVotes getQuoteById(Long id);
 
     QuoteRandom getRandomQuote();
 

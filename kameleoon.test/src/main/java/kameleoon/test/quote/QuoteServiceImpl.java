@@ -56,35 +56,46 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
-    public Quote getQuote(Long id) {
-        Optional<Quote> quoteOpt = repository.findById(id);
-        Quote quote = quoteOpt.orElseThrow(() -> {
-            log.warn("QuoteServiceImpl: getQuote — quote with id {} not exist", id);
-            throw new ObjectNotFountException("Quote with id " + id + " not exist");
-        });
-
-        log.info("QuoteServiceImpl: getQuote — quote with id {} was received", id);
-        return quote;
+    public QuoteCountVotes getQuoteById(Long id) {
+        QuoteCountVotes quoteCountVotes = getQuoteCountVotes(id);
+        log.info("QuoteServiceImpl: getQuoteById — quote with votes with id {} was received", id);
+        return quoteCountVotes;
     }
 
     @Override
     public QuoteRandom getRandomQuote() {
-        List<QuoteRandom> quoteRandom = repository.findIdsQuotes();
-        if (quoteRandom.isEmpty()) {
+        final Random random = new Random();
+        List<QuoteRandom> quoteRandomList = repository.findAllQuotes();
+        if (quoteRandomList.isEmpty()) {
+            log.warn("QuoteServiceImpl: getRandomQuote — on the server no any Quote");
             throw new ObjectNotFountException("On the server no any Quote");
         }
-        int rndIndex = new Random().nextInt(quoteRandom.size());
-        return quoteRandom.get(rndIndex);
+        int rndIndex = random.nextInt(quoteRandomList.size());
+        QuoteRandom quoteRandom = quoteRandomList.get(rndIndex);
+        log.info("QuoteServiceImpl: getRandomQuote — random Quote was received");
+        return quoteRandom;
     }
 
     @Override
     public List<QuoteCountVotes> getTopQuote(Pageable pageable) {
-        return repository.findTopQuotes(pageable);
+        List<QuoteCountVotes> quoteCountVotes = repository.findTopQuotes(pageable);
+        if (quoteCountVotes.isEmpty()) {
+            log.warn("QuoteServiceImpl: getTopQuote — on the server no any Quote");
+            throw new ObjectNotFountException("On the server no any Quote");
+        }
+        log.info("QuoteServiceImpl: getTopQuote — top Quotes was received");
+        return quoteCountVotes;
     }
 
     @Override
     public List<QuoteCountVotes> getWorseQuote(Pageable pageable) {
-        return repository.findWorseQuotes(pageable);
+        List<QuoteCountVotes> quoteCountVotes = repository.findWorseQuotes(pageable);
+        if (quoteCountVotes.isEmpty()) {
+            log.warn("QuoteServiceImpl: getWorseQuote — on the server no any Quote");
+            throw new ObjectNotFountException("On the server no any Quote");
+        }
+        log.info("QuoteServiceImpl: getWorseQuote — worse Quotes was received");
+        return quoteCountVotes;
     }
 
     @Override
@@ -99,7 +110,9 @@ public class QuoteServiceImpl implements QuoteService {
         newVote.setQuote(quote);
         newVote.setAuthor(user);
         Vote vote = voteService.saveVote(newVote);
-        return repository.findQuoteWithVotes(vote.getQuote().getId());
+        QuoteCountVotes quoteCountVotes = getQuoteCountVotes(vote.getQuote().getId());
+        log.info("QuoteServiceImpl: addLikeOrDislike — like/dislike was added");
+        return quoteCountVotes;
     }
 
     private void validateUserIdAndQuoteId(Long quoteId, Long userId) {
@@ -110,5 +123,25 @@ public class QuoteServiceImpl implements QuoteService {
             throw new ConflictException(String.format("User with id %d does not author of quote with id %d.",
                     userId, quote.getId()));
         }
+    }
+
+    private QuoteCountVotes getQuoteCountVotes(Long id) {
+        Optional<QuoteCountVotes> quoteCountVotes = Optional.ofNullable(repository.findQuoteWithVotes(id));
+        QuoteCountVotes quote = quoteCountVotes.orElseThrow(() -> {
+            log.warn("QuoteServiceImpl: getQuoteCountVotes — quote with id {} not exist", id);
+            throw new ObjectNotFountException("Quote with id " + id + " not exist");
+        });
+        log.info("QuoteServiceImpl: getQuote — quote with id {} was received", id);
+        return quote;
+    }
+
+    private Quote getQuote(Long id) {
+        Optional<Quote> quoteOpt = repository.findById(id);
+        Quote quote = quoteOpt.orElseThrow(() -> {
+            log.warn("QuoteServiceImpl: getQuote — quote with id {} not exist", id);
+            throw new ObjectNotFountException("Quote with id " + id + " not exist");
+        });
+        log.info("QuoteServiceImpl: getQuote — quote with id {} was received", id);
+        return quote;
     }
 }

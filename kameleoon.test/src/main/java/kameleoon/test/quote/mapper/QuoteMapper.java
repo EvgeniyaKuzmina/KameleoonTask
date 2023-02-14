@@ -1,4 +1,4 @@
-package kameleoon.test.quote;
+package kameleoon.test.quote.mapper;
 
 import kameleoon.test.quote.dto.NewQuoteDto;
 import kameleoon.test.quote.dto.QuoteDto;
@@ -15,13 +15,11 @@ public interface QuoteMapper {
 
     @Mapping(target = "content", source = "content")
     @Mapping(target = "modificationDate", source = "modificationDate")
-        //@Mapping(target = "author", source = "authorId", qualifiedByName = "authorIdToUser")
     Quote toQuote(NewQuoteDto newQuoteDto);
 
-    //@Mapping(target = "id", source = "id")
     @Mapping(target = "content", source = "content")
     @Mapping(target = "modificationDate", source = "modificationDate")
-    Quote toQuote(UpdateQuoteDto newQuoteDto);
+    Quote toQuote(UpdateQuoteDto updQuoteDto);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "content", source = "content")
@@ -38,6 +36,6 @@ public interface QuoteMapper {
     QuoteDto toQuoteDto(QuoteCountVotes quoteCountVotes);
 
     @Mapping(target = "content", source = "content")
-    RandomQuoteDto toQuoteDto(QuoteRandom quote);
+    RandomQuoteDto toQuoteDto(QuoteRandom quoteRandom);
 
 }

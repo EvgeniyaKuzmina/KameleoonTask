@@ -1,5 +1,6 @@
 package kameleoon.test.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 
@@ -16,6 +17,7 @@ public class UserDto {
     private String name;
     private String email;
     private String password;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime creationDate;
 
 }

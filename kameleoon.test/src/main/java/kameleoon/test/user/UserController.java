@@ -3,6 +3,7 @@ package kameleoon.test.user;
 import jakarta.validation.Valid;
 import kameleoon.test.user.dto.NewUserDto;
 import kameleoon.test.user.dto.UserDto;
+import kameleoon.test.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 
 @RestController

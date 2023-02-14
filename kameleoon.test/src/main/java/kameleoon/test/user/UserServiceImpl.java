@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
             log.warn("UserServiceImpl: getUserById — user with id {} not exist", id);
             throw new ObjectNotFountException("User with id " + id + " not exist");
         });
-
         log.info("UserServiceImpl: getUserById — user with id {} was received", id);
         return user;
 

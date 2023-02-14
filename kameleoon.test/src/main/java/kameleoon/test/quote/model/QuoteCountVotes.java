@@ -1,22 +1,22 @@
 package kameleoon.test.quote.model;
 
 import kameleoon.test.user.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@ToString
 public class QuoteCountVotes {
 
     private Long id;
     private String content;
     private LocalDateTime modificationDate;
     private User author;
-    private Long likes;
-    private Long dislikes;
+    @Builder.Default
+    private Long likes = 0L;
+    @Builder.Default
+    private Long dislikes = 1L;
 }

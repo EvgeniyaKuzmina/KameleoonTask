@@ -1,6 +1,7 @@
-package kameleoon.test.user;
+package kameleoon.test.user.mapper;
 
 
+import kameleoon.test.user.User;
 import kameleoon.test.user.dto.NewUserDto;
 import kameleoon.test.user.dto.UserDto;
 import org.mapstruct.InjectionStrategy;
