@@ -3,6 +3,7 @@ package kameleoon.test.quote.vote;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.time.LocalDateTime;
 
 
 @Builder
@@ -19,6 +20,7 @@ public class VoteDto {
     @NotNull
     @Builder.Default
     private Integer dislike = 0;
+    private LocalDateTime modificationDate = LocalDateTime.now();
 
 
     public void setLike(Boolean like) {

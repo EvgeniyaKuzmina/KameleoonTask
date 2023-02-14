@@ -8,7 +8,5 @@ public interface VoteService {
 
     void deleteVote(Long voteId);
 
-    void changeLikeDislike(Boolean like, Boolean dislike, Long voteId);
-
     Optional<Vote> getVoteByAuthorIdAndQuoteId(Long authorId, Long quoteId);
 }

@@ -39,6 +39,15 @@ public class ErrorHandler {
                 .build();
     }
 
+    @ExceptionHandler(SaveException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiError handlerConflictException(SaveException e) {
+        return ApiError.builder()
+                .message(e.getMessage())
+                .status(HttpStatus.CONFLICT)
+                .build();
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handlerMethodArgumentNotValidException(MethodArgumentNotValidException e) {

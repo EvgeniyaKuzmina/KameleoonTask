@@ -3,7 +3,6 @@ package kameleoon.test.user;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 
@@ -17,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

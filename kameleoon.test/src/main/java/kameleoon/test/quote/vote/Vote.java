@@ -5,6 +5,7 @@ import kameleoon.test.quote.model.Quote;
 import kameleoon.test.user.User;
 import lombok.*;
 
+import java.time.LocalDateTime;
 
 
 @Builder
@@ -29,4 +30,6 @@ public class Vote {
     @ManyToOne
     @JoinColumn(name = "quote_id", nullable = false)
     private Quote quote;
+    @Column(name = "date_added", nullable = false)
+    private LocalDateTime modificationDate;
 }
