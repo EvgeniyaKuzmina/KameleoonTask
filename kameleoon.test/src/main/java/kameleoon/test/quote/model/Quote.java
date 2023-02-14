@@ -1,9 +1,9 @@
 package kameleoon.test.quote.model;
 
-import jakarta.persistence.*;
 import kameleoon.test.user.User;
 import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Builder

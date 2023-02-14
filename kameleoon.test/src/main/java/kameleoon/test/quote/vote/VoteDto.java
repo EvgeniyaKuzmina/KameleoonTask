@@ -1,8 +1,8 @@
 package kameleoon.test.quote.vote;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
