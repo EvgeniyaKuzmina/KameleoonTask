@@ -4,7 +4,7 @@ Application allows you to create user, add quotes, viewing (including getting a 
 View of the top and worse 10 quotes, the details of each quote.
 
 
-To deploy an application based on a docker container, use the command docker-compose up
+To deploy an application based on a docker container, use the command docker-compose up.
 Images you can find by the link https://hub.docker.com/repository/docker/evgeniyakuzmina/kameleoon-test-img/general 
 
 ## Create user
