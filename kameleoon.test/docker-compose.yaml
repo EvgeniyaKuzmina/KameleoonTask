@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  kameleoon-test:
+    build:  .
+    image:  kameleoon-test-img
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:h2:./db/kameleoon-test
+      - SPRING_DATASOURCE_USERNAME=kameleoon
+      - SPRING_DATASOURCE_PASSWORD=1234
+
+  db:
+    image: buildo/h2database:latest
+    ports:
+      - "9092:9092"
+    volumes:
+      - /var/lib/h2/data/
+    environment:
+      - POSTGRES_DB=kameleoon
+      - POSTGRES_USER=kameleoon
+      - POSTGRES_PASSWORD=1234
+
+
+
+
