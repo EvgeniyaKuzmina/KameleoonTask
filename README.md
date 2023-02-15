@@ -3,6 +3,10 @@ Task you can find on the page https://developers.kameleoon.com/back-end-trial-ta
 Application allows you to create user, add quotes, viewing (including getting a random quote), modification, and deletion of quotes. Also voting on quotes.
 View of the top and worse 10 quotes, the details of each quote.
 
+
+To deploy an application based on a docker container, use the command docker-compose up
+Images you can find by the link https://hub.docker.com/repository/docker/evgeniyakuzmina/kameleoon-test-img/general 
+
 ## Create user
 endpount: /users
 
@@ -81,5 +85,3 @@ One user can put only one like, or dislike. Not possible to put like and dislike
 If a user put like, and then put dislike, like from the quote will be removed.
 
 
-To deploy an application based on a docker container, use the command docker-compose up
-Images you can find by the link https://hub.docker.com/repository/docker/evgeniyakuzmina/kameleoon-test-img/general 
