@@ -9,5 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class QuoteRandom {
 
+    Long id;
     String content;
 }
