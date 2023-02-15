@@ -2,7 +2,7 @@ version: '3.8'
 services:
   kameleoon-test:
     build:  .
-    image:  kameleoon-test-img
+    image: evgeniyakuzmina/kameleoon-test-img
     ports:
       - "8080:8080"
     depends_on:
