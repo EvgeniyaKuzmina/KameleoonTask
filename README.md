@@ -82,3 +82,4 @@ If a user put like, and then put dislike, like from the quote will be removed.
 
 
 To deploy an application based on a docker container, use the command docker-compose up
+Images you can find by the link https://hub.docker.com/repository/docker/evgeniyakuzmina/kameleoon-test-img/general 
