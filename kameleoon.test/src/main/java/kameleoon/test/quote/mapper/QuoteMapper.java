@@ -35,6 +35,7 @@ public interface QuoteMapper {
     @Mapping(target = "dislikes", source = "dislikes")
     QuoteDto toQuoteDto(QuoteCountVotes quoteCountVotes);
 
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "content", source = "content")
     RandomQuoteDto toQuoteDto(QuoteRandom quoteRandom);
 
